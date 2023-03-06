@@ -1,1 +1,1 @@
-var tipuesearch = {"pages": [{'title': 'About', 'text': 'cmsimde_site', 'tags': '', 'url': 'About.html'}]};
+var tipuesearch = {"pages": [{'title': 'About', 'text': '組員 : 41023119 呂承劼 41023138 林敬燐 \n 倉儲 :  https://github.com/mdecd2023/2a-pj1ag10 \n 網站 :  https://mdecd2023.github.io/2a-pj1ag10/content/index.html \n 建倉儲工作:41023119承劼git clone \n \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 41023138敬燐發現問題、問老師、解決問題 \n', 'tags': '', 'url': 'About.html'}]};
