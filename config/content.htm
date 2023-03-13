@@ -2,7 +2,7 @@
 <p>組員 : 41023119 呂承劼 41023138 林敬燐</p>
 <p>倉儲 : <a href="https://github.com/mdecd2023/2a-pj1ag10">https://github.com/mdecd2023/2a-pj1ag10</a></p>
 <p>網站 : <a href="https://mdecd2023.github.io/2a-pj1ag10/content/index.html">https://mdecd2023.github.io/2a-pj1ag10/content/index.html</a></p>
-<h1>Progress</h1>
+<h1>progress</h1>
 <p>week 1 :  講解課程內容及評分標準</p>
 <p>week 2 :  二二八放假</p>
 <p>week 3 : 講解如何建立靜態網站</p>
@@ -12,8 +12,9 @@
 <p>41023138 過程發現問題，並且問老師、解決問題，編寫 note目錄</p>
 <h1>note</h1>
 <p>課程筆記</p>
-<h2>wink</h2>
-<p>&lt;script&gt;// &lt;![CDATA[<br/>var winkVideoData_w1_1 = {<br/>  dataVersion: 1,<br/>  frameRate: 10,<br/>  buttonFrameLength: 5,<br/>  buttonFrameOffset: 2,<br/>  frameStops: {<br/>  },<br/>};<br/>// ]]&gt;&lt;/script&gt;<br/>&lt;!-- 接下來將 mp4 檔案從 downloads 目錄取出 --&gt;<br/>&lt;div class="winkVideoContainerClass"&gt;&lt;video width="800" height="600" autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/cmsimde/static" data-varname="winkVideoData_w1_1" muted="true"&gt;<br/>&lt;source src="./../downloads/wink/xxxxxxxxx.mp4" type="video/mp4" /&gt;&lt;/video&gt;&lt;/div&gt;</p>
+<h2>add wink</h2>
+<p>將下面全選複製到 source code (也就是&lt;&gt;裡面)即可</p>
+<p>&lt;script&gt;// &lt;![CDATA[<br/>var winkVideoData_w1_1 = {<br/>  dataVersion: 1,<br/>  frameRate: 10,<br/>  buttonFrameLength: 5,<br/>  buttonFrameOffset: 2,<br/>  frameStops: {<br/>  },<br/>};<br/>// ]]&gt;&lt;/script&gt;<br/>&lt;!-- 接下來將 mp4 檔案從 downloads 目錄取出 --&gt;<br/>&lt;div class="winkVideoContainerClass"&gt;&lt;video width="800" height="600" autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/cmsimde/static" data-varname="winkVideoData_w1_1" muted="true"&gt;<br/>&lt;source src="./../downloads/xxxxxxxxx.mp4" type="video/mp4" /&gt;&lt;/video&gt;&lt;/div&gt;</p>
 <h2>stud2.cycu.org</h2>
 <p>資料連結:<a href="https://teams.microsoft.com/_#/school/ClassNotes/w5?threadId=19:a398eb1b5dc841b690f68a4e4dcefdb7@thread.tacv2&amp;ctx=channel">team-cad2022-w5</a></p>
 <p>step1. (登入 stud.cycu.org)利用 @nfu 電子郵箱收到的帳號與密碼, 登入 stud.cycu.org:  在命令列視窗, 以 ssh cad學號@stud.cycu.org , 輸入對應密後, 可以登入系統 <br/><br/>step2. 請到 excel 檔案 查詢 stud.cycu.org 中與帳號對應的近端 (給 127.0.0.1 使用) 與遠端 (給 stud.cycu.org) 埠號 <br/><br/>step3. (透過 sftp 建立近端目錄與 stud.cycu.org 帳號下的對應)  開啟另一個命令列, 執行 sftp 帳號@stud.cycu.org   輸入對應密碼, 即可建立近端目錄與遠端系統目錄間的對應. <br/><br/>step4. 與在近端(Windows)利用  SSH 建立 public/private keys 流程相同, 必須在 Linux (Ubuntu) 利用 ssh-keygen 建立 keys. 所產生的 id_rsa 為 private key, 而 id_rsa.pub 為 public key, 都位於 .ssh 目錄下. <br/><br/>step5. 利用 sftp  進入 stud.cycu.org 後, cd 到 .ssh, 以 get id_rsa.pub 將 public key 取至  Windows 後, 送到 Github -&gt; Settings -&gt; SSH and GPG 設定區, 透過 new key 登錄公鑰. <br/><br/>step6. 接下來要下載  config 設定檔案,  以 sftp 放入 stud.cycu.org 主機的 .ssh 目錄中. <br/><br/>step7. 上面的  config  主要設定 SSH 協定對  github.com  連線時的代理主機, 但取下  cmsimde  子模組使用的是  https,  因此執行下列  git clone 時將會同時用到   SSH  與 https  協定,  因此除了  .ssh  目錄下要有  config  設定檔案外, 也必須同時在  .gitconfig  檔案中設定  http.proxy,  也就是以 git config --global http.proxy http://p42.cycu.org:3128 設定供 https 連線使用的代理主機, 並且以  git config --global  user.name 以及  git config --global  user.email 設定提交用的身分註記. <br/><br/>step8. 在 stud.cycu.org 中, 以 git clone --recurse-submodules  git@github.com:mdecad2022/site-個人github帳號.git   取下個人倉儲. <br/><br/>step9. 假如先前使用  git clone 並沒有取下  cmsimde 子模組內容, 只要在設定 https 代理主機後, 進入倉儲根目錄執行  git submodule update --init  --recursive  即可取下子模組內容. <br/><br/>step10. 接著下載 server.py, 在 Windows 編輯 server.py, 將個人分配到的 9xxxx 埠號填入後存檔, 以 sftp 放入上列取下的倉儲根目錄. <br/><br/>step11. 在 stud.cycu.org 系統中, 進入倉儲 (site-github帳號) 後, 執行 python3 server.py, 就可啟用動態網站. <br/><br/>step12. 設定完成後, 各學員將會有一個廣域網路上的動態網站 (取代 Replit 上的動態網站), https://stud.cycu.org:8xxxx   看到個人的動態網站. <br/><br/>step13. 動態網站改版後, 轉為靜態, 必須透過 source acp 以 SSH 將改版內容送回 github. (必須利用 chmod u+x acp 將 acp  檔案屬性改為對  user 可以 execute (也就是 x 屬性). <br/><br/>step14. 執行 source acp  "提交字串" 之前必須要 git config  --global user.name, git config  --global user.email, git config  --global http.proxy <br/><br/>step15. 上述採用指令模式對  server sftp 也可以利用  Filezilla portable, 以圖形介面完成. 而 ssh 也可以透過  putty.exe 執行遠端登入.</p>
@@ -55,9 +56,13 @@
 <p>2. 要將 dynamic site 做好的內容 acp 到 github 倉儲上時無法上傳成功</p>
 <p>-&gt; 與問題一相同的類型，將學校網路設置為ipv4即可acp</p>
 <p>有問過老師之後，我們也分工合作，把這個禮拜的進度慢慢在做了。</p>
-<h1>tutorial1</h1>
+<h1>w4</h1>
+<p>BubbleRub tutorial 製作結果與心得 presentation (以 Web-based 方式發表):</p>
+<p><a href="https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html">https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html</a><br/><br/>Tutorial 議題: Why? How? What? (主題為何? 如何協同? 完成內容展示 - in person or in webpages)</p>
+<p></p><h1>tutorial1</h1>
 <p>球體碰撞模擬<a href="/downloads/BubbleRub作業.pptx"></a></p>
 <p>bubbleRobTutorial 簡報：  <a href="/downloads/BubbleRub作業.pptx">BubbleRub作業.pptx</a></p>
+<p>bubbleRobTutorial 檔案：<a href="/downloads/bubbleRobTutorial 1.ttt">bubbleRobTutorial.ttt</a></p>
 <p>
 <script>
 var winkVideoData_w1_1 = {
@@ -106,9 +111,39 @@ var winkVideoData_w1_1 = {
 <div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/cmsimde/static" data-varname="winkVideoData_w1_1" height="600" muted="true" width="800">
 <source src="./../downloads/wink/bubblerob.mp4" type="video/mp4"/></video></div>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/zYBhGxe1xCI" title="YouTube video player" width="560"></iframe></p>
-<p>檔案:<a href="/downloads/bubbleRobTutorial 1.ttt">bubbleRobTutorial 1</a>    (目前 visionSensors 還無法正常運作，問題還在解決中)</p>
+<p>成功將 vision sensor 的畫面顯示出來(參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/tutorial1.html">pj1ag2</a> vision sensor的做法)</p>
+<script>
+var winkVideoData_w1_1 = {
+  dataVersion: 1,
+  frameRate: 10,
+  buttonFrameLength: 5,
+  buttonFrameOffset: 2,
+  frameStops: {
+  },
+};
+</script>
+<!-- 接下來將 mp4 檔案從 downloads 目錄取出 -->
+<div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/cmsimde/static" data-varname="winkVideoData_w1_1" height="600" muted="true" width="800">
+<source src="./../downloads/wink/bubblerob vision.mp4" type="video/mp4"/></video></div>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/p9bo9MaPl7w" title="YouTube video player" width="560"></iframe></p>
 <p>41023119 心得: 製作bubbleRobTutorial時遇到不少問題，如:軸在裝配時選轉方向設置顛倒，導致bubbleRobTutorial 模擬後變成倒著跑，也有遇到只會在原地轉的，還有名稱大小寫打錯導致程式無法運行，但後來都有順利解決。因為參考資料是英文，所以在製作過程中遇到英文單字看不懂或無法理解他的意思，需要上網參考資料才能理解。</p>
-<p>41023138心得: 製作bubbleRobTutoria作業，我們這組遇到的問題是會後退跑跟原地旋轉，一開始我們把座標多了一個負號就不是往後跑，我們以為我們就解決問題了，後續的東西加進去之後，也陸續出現問題，就從心重頭再做一次，一步一步慢慢做，到最後有順利完成。</p><h1>專案規劃</h1>
+<p>41023138心得: 製作bubbleRobTutoria作業，我們這組遇到的問題是會後退跑跟原地旋轉，一開始我們把座標多了一個負號就不是往後跑，我們以為我們就解決問題了，後續的東西加進去之後，也陸續出現問題，就從心重頭再做一次，一步一步慢慢做，到最後有順利完成。</p>
+<h2>problem</h2>
+<p><strong>CoppeliaSim Edu use language</strong></p>
+<p>CoppeliaSim Edu 使用 6 種不同編碼語言的強大 API，在這6種編碼語言中 C++ 和 Python 是模擬器中使用最多的語言，並且還必須了解 Python 及 Lua language。</p>
+<p>相關參考資料：<a href="https://robocraze.com/blogs/post/understanding-simulators-through-coppliasim">https://robocraze.com/blogs/post/understanding-simulators-through-coppliasim</a></p>
+<p><strong>Lua language</strong></p>
+<p>Lua 是在1993年由羅伯托·耶魯薩林斯希、Luiz Henrique de Figueiredo 和 Waldemar Celes 建立的，他們當時是巴西的里約熱內盧天主教大學的電腦圖形技術組（Tecgraf）成員，而 Lua 的先驅是資料描述/組態語言「SOL」（簡單物件語言）和「DEL」（資料錄入語言）</p>
+<p>相關參考資料：<a href="https://zh.wikipedia.org/zh-tw/Lua">https://zh.wikipedia.org/zh-tw/Lua</a></p>
+<p><strong>ttt 檔與 xml 檔</strong></p>
+<p>ttt 檔通常是由 Interscape 開發稱為TestTrack Pro的軟體，它們可以歸類為三種主文件類型。 通常，這些文件被視為TestTrack Pro Database File格式。 在大多數情況下，這些文件被視為Data Files, 但它們也可以是Encrypted Files。</p>
+<p>相關參考資料：<a href="https://www.solvusoft.com/zh-tw/file-extensions/file-extension-ttt/">https://www.solvusoft.com/zh-tw/file-extensions/file-extension-ttt/</a></p>
+<p>xml 檔為可延伸標記式語言（英語：Extensible Markup Language，簡稱：XML）是一種標記式語言。XML是從標準通用標記式語言（SGML）中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言（XSL）、XBRL和XPath等。</p>
+<p>xml 設計是用來傳送和攜帶資料資訊，不用於表現和展示資料，HTML則用來表現資料，所以XML用途的焦點是在於說明資料是什麼以及攜帶資料資訊。</p>
+<p>相關參考資料：<a href="https://zh.wikipedia.org/zh-tw/XML">https://zh.wikipedia.org/zh-tw/XML</a></p>
+<p><strong>coppeliasim 中的 scene 與 model 有何不同?</strong></p>
+<p>scene：與模型相比，場景可以包含完全相同類型的元素，但還包括特定於場景的環境、主腳本、頁面和檢視、多個相機對象、幾個發光的物體、多個視圖、多個頁面、地板及默認主腳本。</p>
+<p>model：模型是場景的子元素。模型本身不能存在，除非存在於文件（“*.ttm”-文件類型）中，也不能通過自身進行模擬。模型必須包含在場景中才能運行。</p><h1>專案規劃</h1>
 <p>規劃專案的12個步驟</p>
 <p><br/>如果我們有好多好多的事情要做，誰不愛擁有一個清單？告訴自己該做什麼，並且詳細的條列出來，下次只要依循這些清單上面的步驟，我們就可以完成一個專案，又不用害怕遺漏甚麼東西，那該有多好呢？當然身為負責這個專案的你，以下步驟可以幫助你更輕鬆有效的規劃專案。</p>
 <p style="text-align: left;">1.定義範疇<br/>這是一個規劃專案的重要第一步，此專案要做甚麼、包含的範圍有多廣，必須在何時完成，你必須把這個大餅畫出來再做細分，才能夠掌握此專案的正確方向。<br/><br/>2.確定您的專案發起人<br/>每一個專案都會有一個發起人或利益相關者，找出這些人都是誰。</p>
