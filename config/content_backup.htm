@@ -6,11 +6,12 @@
 <p>week 1 :  講解課程內容及評分標準</p>
 <p>week 2 :  二二八放假</p>
 <p>week 3 : 講解如何建立靜態網站</p>
-<p>week 4 : Bubblerub tutorial 製作過程與心得</p>
 <p>分工進度</p>
 <p>41023119 建立靜態網站、編寫 dynamic stie、progress、tutorial 1 、專案規劃及修改note目錄</p>
 <p>41023138 過程發現問題，並且問老師、解決問題，編寫 note目錄</p>
-<h1>note</h1>
+<p>week 4 : Bubblerub tutorial 製作過程與心得</p>
+<p>41023119 加入 tutorial .ttt 檔 wink 影片及 problem 、notestud2.cycu.org 及 add wink 筆記、新增 w4 目錄</p>
+<p>41023138 解決倉儲同步問題、加入同步倉儲筆記及 tutorial 簡報</p><h1>note</h1>
 <p>課程筆記</p>
 <h2>add wink</h2>
 <p>將下面全選複製到 source code (也就是&lt;&gt;裡面)即可</p>
@@ -37,7 +38,90 @@
 <p>step7. 以 generate_pages 轉為靜態後，就可以直接 acp 進行 git add,commit 與 push</p>
 <h1>w3</h1>
 <p>w3 - 已完成分組網頁 透過 stud2.cycu.org 執行動態網站<br/><br/>w3 - 請各組寫一個程式判定 2a 哪一組已經完成網頁建置.<br/><br/>w3 開始執行 <a href="https://mde.tw/pjcopsim/content/bubbleRobTutorial.html">https://mde.tw/pjcopsim/content/bubbleRobTutorial.html</a> <br/><br/>星期四補課時間, 要驗收 Tutorial1 (心得, 展示頁面說明各組員所完成項目, 說明該組的專案規劃)</p>
-<h2>41023119 心得</h2>
+<h2>check website building</h2>
+<!-- 導入 brython 程式庫 -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- 啟動 Brython -->
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+<p><!-- 導入 FileSaver 與 filereader --></p>
+<p>
+<script src="/static/ace/FileSaver.min.js" type="text/javascript"></script>
+<script src="/static/ace/filereader.js" type="text/javascript"></script>
+</p>
+<p><!-- 導入 ace --></p>
+<p>
+<script src="/static/ace/ace.js" type="text/javascript"></script>
+<script src="/static/ace/ext-language_tools.js" type="text/javascript"></script>
+<script src="/static/ace/mode-python3.js" type="text/javascript"></script>
+<script src="/static/ace/snippets/python.js" type="text/javascript"></script>
+</p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p>
+<script type="text/javascript">
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+</script>
+</p>
+<p><!-- 印出版次與關鍵字程式 --></p>
+<p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+# 清除畫布
+def clear_bd(ev):
+    bd = doc["brython_div"]
+    bd.clear()
+# Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
+Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
+# 從 gist 取出程式碼後, 放入 editor 作為 default 程式
+def run():
+    # 利用 get 取下 src 變數值
+    try:
+        url = doc.query["src"]
+    except:
+        url = "https://gist.githubusercontent.com/Lujay030/d190651a4ae57789f0193b564a5ccd3e/raw/0347aeeb81ea29d85cade3aa65f8fa3886765859/final_work_1-3"
+    prog = open(url).read()
+
+    # 將程式載入編輯區
+    Ace.editor.setValue(prog)
+    Ace.editor.scrollToRow(0)
+    Ace.editor.gotoLine(0)
+    # 直接執行程式
+    #ns = {'__name__':'__main__'}
+    #exec(prog, ns)
+    # 按下 run 按鈕
+    Ace.run()
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run'].bind('click', Ace.run)
+doc['kw_show_console'].bind('click', Ace.show_console)
+doc['kw_clear_console'].bind('click', Ace.clear_console)
+doc['clear_bd'].bind('click', clear_bd)
+# 呼叫函式執行
+run()
+</script>
+</p>
+<p><!-- 用來顯示程式碼的 editor 區域 --></p>
+<div id="kw_editor" style="width: 600px; height: 300px;"></div>
+<p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
+<!-- 存擋表單開始 --><form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src', 'kw_filename');" type="submit" value="Save"/></form><!-- 存擋表單結束 -->
+<p></p>
+<!-- 執行與清除按鈕開始 -->
+<p><button id="kw_run">Run</button> <button id="kw_show_console">Output</button> <button id="kw_clear_console">清除輸出區</button><button id="clear_bd">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<!-- 執行與清除按鈕結束 -->
+<p></p>
+<!-- 程式執行 ouput 區 -->
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
+<!-- Brython 程式執行的結果, 都以 brython_div 作為切入位置 -->
+<div id="brython_div"></div><h2>41023119 心得</h2>
 <p>本學期課程為協同設計，主要有四點</p>
 <p>1.看參與協同者能否<span style="box-sizing: border-box;">同步並發</span>執行所被交付的內容</p>
 <p>2.能否保留每一個階段所從事的設計版</p>
@@ -59,7 +143,8 @@
 <h1>w4</h1>
 <p>BubbleRub tutorial 製作結果與心得 presentation (以 Web-based 方式發表):</p>
 <p><a href="https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html">https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html</a><br/><br/>Tutorial 議題: Why? How? What? (主題為何? 如何協同? 完成內容展示 - in person or in webpages)</p>
-<p></p><h1>tutorial1</h1>
+<p></p>
+<h1>tutorial1</h1>
 <p>球體碰撞模擬<a href="/downloads/BubbleRub作業.pptx"></a></p>
 <p>bubbleRobTutorial 簡報：  <a href="/downloads/BubbleRub作業.pptx">BubbleRub作業.pptx</a></p>
 <p>bubbleRobTutorial 檔案：<a href="/downloads/bubbleRobTutorial 1.ttt">bubbleRobTutorial.ttt</a></p>
@@ -130,17 +215,22 @@ var winkVideoData_w1_1 = {
 <p>41023138心得: 製作bubbleRobTutoria作業，我們這組遇到的問題是會後退跑跟原地旋轉，一開始我們把座標多了一個負號就不是往後跑，我們以為我們就解決問題了，後續的東西加進去之後，也陸續出現問題，就從心重頭再做一次，一步一步慢慢做，到最後有順利完成。</p>
 <h2>problem</h2>
 <p><strong>CoppeliaSim Edu use language</strong></p>
-<p>CoppeliaSim Edu 使用 6 種不同編碼語言的強大 API，在這6種編碼語言中 C++ 和 Python 是模擬器中使用最多的語言，並且還必須了解 Python 及 Lua language。</p>
-<p>相關參考資料：<a href="https://robocraze.com/blogs/post/understanding-simulators-through-coppliasim">https://robocraze.com/blogs/post/understanding-simulators-through-coppliasim</a></p>
+<p>CoppeliaSim（也稱作V-REP）是一個通用的機器人仿真軟件，支持多種編程語言，包括 C/C++、Python、Lua、Matlab 等等。您可以使用其中任何一種語言進行仿真場景的構建、機器人控制、物體偵測等等操作。CoppeliaSim提供了多種API函數供不同的編程語言使用，讓使用者能夠快速進行仿真操作。</p>
 <p><strong>Lua language</strong></p>
-<p>Lua 是在1993年由羅伯托·耶魯薩林斯希、Luiz Henrique de Figueiredo 和 Waldemar Celes 建立的，他們當時是巴西的里約熱內盧天主教大學的電腦圖形技術組（Tecgraf）成員，而 Lua 的先驅是資料描述/組態語言「SOL」（簡單物件語言）和「DEL」（資料錄入語言）</p>
-<p>相關參考資料：<a href="https://zh.wikipedia.org/zh-tw/Lua">https://zh.wikipedia.org/zh-tw/Lua</a></p>
-<p><strong>ttt 檔與 xml 檔</strong></p>
-<p>ttt 檔通常是由 Interscape 開發稱為TestTrack Pro的軟體，它們可以歸類為三種主文件類型。 通常，這些文件被視為TestTrack Pro Database File格式。 在大多數情況下，這些文件被視為Data Files, 但它們也可以是Encrypted Files。</p>
-<p>相關參考資料：<a href="https://www.solvusoft.com/zh-tw/file-extensions/file-extension-ttt/">https://www.solvusoft.com/zh-tw/file-extensions/file-extension-ttt/</a></p>
-<p>xml 檔為可延伸標記式語言（英語：Extensible Markup Language，簡稱：XML）是一種標記式語言。XML是從標準通用標記式語言（SGML）中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言（XSL）、XBRL和XPath等。</p>
-<p>xml 設計是用來傳送和攜帶資料資訊，不用於表現和展示資料，HTML則用來表現資料，所以XML用途的焦點是在於說明資料是什麼以及攜帶資料資訊。</p>
-<p>相關參考資料：<a href="https://zh.wikipedia.org/zh-tw/XML">https://zh.wikipedia.org/zh-tw/XML</a></p><h1>專案規劃</h1>
+<p>Lua 是一種輕量級、高效、可擴展的腳本語言，被廣泛應用於遊戲開發、Web開發、嵌入式系統等領域。它是由巴西里約熱內盧天主教大學（Pontifical Catholic University of Rio de Janeiro）的一個小組在1993年開發的。Lua的設計目標是提供一種簡單、可靠、可擴展的腳本語言，它具有以下特點：</p>
+<p>1. 簡潔易學：Lua語法簡潔明了，易於學習和使用。<br/>2. 高效快速：Lua的運行速度非常快，並且具有極低的內存消耗。<br/>3. 可擴展性強：Lua提供了豐富的 API 和庫，支持動態擴展，能夠方便地與 C/C++ 語言進行互操作。<br/>4. 跨平台性強：Lua可以運行在多種操作系統上，包括 Windows、Linux、Mac OS 等等。</p>
+<p><br/>由於它的高效性和易擴展性，Lua被廣泛用於遊戲開發中，如《魔獸世界》、《Minecraft》等遊戲就使用了Lua。</p>
+<p></p>
+<p><strong>CoppeliaSim.ttt 檔案格式與 .simscene.xml 檔案格式有何不同?<br/></strong></p>
+<p>1. 文件格式不同：<br/>CoppeliaSim.ttt文件是二進制文件格式，而.simscene.xml文件是XML文件格式。<br/><br/>2. 可讀性不同：<br/>CoppeliaSim.ttt文件是一個二進制文件，因此不易讀取和修改。而.simscene.xml文件是一個純文本文件，易於編輯和修改，也易於版本控制。<br/><br/>3. 儲存方式不同：<br/>CoppeliaSim.ttt文件可以通過點擊CoppeliaSim軟件的“保存”按鈕來保存。而.simscene.xml文件則可以通過使用CoppeliaSim軟件中的“導出場景”功能來生成，或者通過手動編輯XML文件來創建。<br/><br/>4. 功能不同：<br/>CoppeliaSim.ttt文件格式支援保存仿真場景中的所有物體、傳感器、控制器等等的信息，並且可以包含Lua代碼。.simscene.xml文件格式僅支援保存仿真場景中的物體、位置、大小、形狀等基本信息，不支援保存複雜的控制代碼。<br/><br/>總而言之，CoppeliaSim.ttt文件格式和.simscene.xml文件格式在文件格式、可讀性、儲存方式和功能等方面存在差異。使用者可以根據需要選擇不同的文件格式來保存仿真場景。</p>
+<p></p>
+<p><strong>在 coppeliasim 中, scene 與 model 有何不同?</strong></p>
+<p>Scene 是 CoppeliaSim 中的基本單位，它包括所有的物體、傳感器、效果器和控制器等等。在 CoppeliaSim 中，使用者可以通過創建 Scene 來構建仿真場景，並在其中進行各種操作。<br/><br/>Model 則是 Scene 中的一個物體，它可以是機器人、傳感器、效果器等等。Model 有自己的位置、姿態、大小和形狀等屬性，可以被控制和操作。<br/><br/>簡而言之，Scene 是 CoppeliaSim 中的最基本單位，Model 是 Scene 中的物體。在 CoppeliaSim 中，使用者可以通過創建 Scene 來構建仿真場景，再在其中添加不同的 Model，通過控制和操作這些 Model 來實現所需的仿真功能。</p>
+<p><strong>在 CoppeliaSim 中, 何謂 clean model?</strong><br/><br/>在CoppeliaSim中，clean model是指一個簡化的物體模型，通常是由一個或多個基本形狀（例如球體、方體等）組成的，用於減少物體模型的複雜性和計算量，以提高仿真性能。clean model是在物體創建過程中自動生成的，可以在CoppeliaSim中的物體屬性面板中進行設置和調整。<br/><br/>使用clean model可以減少物體模型的三角面數量，提高仿真效率。在CoppeliaSim中，物體模型的三角面數量會直接影響仿真速度，因此使用clean model可以在保持物體外觀的前提下，大幅提高仿真速度。另外，clean model也可以用於減少物體模型的碰撞形狀，提高碰撞檢測效率。<br/><br/>需要注意的是，使用clean model可能會導致物體模型的外觀出現明顯的不同，因此需要根據實際需求和模擬效果來選擇是否使用clean model。如果需要高精度的物體模擬效果，則不建議使用clean model。</p>
+<p><strong>在CoppeliaSim scene 中,如何利用 lua 以及 python 建立 primitive type object, 並利用程式設定物件位置?</strong></p>
+<p>在CoppeliaSim scene中，可以使用Lua或Python腳本來建立基本形狀物體（primitive type object），並利用程式設定物體位置。<br/><br/>以下是使用Lua腳本建立基本形狀物體並設定位置的示例：<br/><br/>lua</p>
+<p><br/>-- 創建一個球形物體<br/>local radius = 0.1<br/>local ballHandle = sim.createPureShape(0, 16, {radius, radius, radius}, 0.005, nil)<br/><br/>-- 設定物體位置<br/>local position = {0, 0, 0.5}<br/>sim.setObjectPosition(ballHandle, -1, position)<br/>以上代碼首先創建了一個半徑為0.1的球形物體，並將其存儲在變量ballHandle中。然後，通過sim.setObjectPosition函數將球形物體放置在世界坐標系中的位置(0,0,0.5)。<br/><br/>以下是使用Python腳本建立基本形狀物體並設定位置的示例：<br/><br/>python<br/><br/>import sim<br/><br/># 創建一個球形物體<br/>radius = 0.1<br/>ballHandle = sim.simCreatePureShape(0, 16, [radius, radius, radius], 0.005, None)<br/><br/># 設定物體位置<br/>position = [0, 0, 0.5]<br/>sim.simSetObjectPosition(ballHandle, -1, position)<br/>以上代碼首先創建了一個半徑為0.1的球形物體，並將其存儲在變量ballHandle中。然後，通過sim.simSetObjectPosition函數將球形物體放置在世界坐標系中的位置(0,0,0.5)。<br/><br/>需要注意的是，以上代碼僅示範了如何創建基本形狀物體並設定位置。在實際應用中，可能需要對物體進行更多的設置，例如添加碰撞形狀、質量等等。使用者可以根據需要進一步設置物體屬性，以滿足自己的需求。</p>
+<h1>專案規劃</h1>
 <p>規劃專案的12個步驟</p>
 <p><br/>如果我們有好多好多的事情要做，誰不愛擁有一個清單？告訴自己該做什麼，並且詳細的條列出來，下次只要依循這些清單上面的步驟，我們就可以完成一個專案，又不用害怕遺漏甚麼東西，那該有多好呢？當然身為負責這個專案的你，以下步驟可以幫助你更輕鬆有效的規劃專案。</p>
 <p style="text-align: left;">1.定義範疇<br/>這是一個規劃專案的重要第一步，此專案要做甚麼、包含的範圍有多廣，必須在何時完成，你必須把這個大餅畫出來再做細分，才能夠掌握此專案的正確方向。<br/><br/>2.確定您的專案發起人<br/>每一個專案都會有一個發起人或利益相關者，找出這些人都是誰。</p>
