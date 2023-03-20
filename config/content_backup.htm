@@ -3,13 +3,14 @@
 <p>倉儲 : <a href="https://github.com/mdecd2023/2a-pj1ag10">https://github.com/mdecd2023/2a-pj1ag10</a></p>
 <p>網站 : <a href="https://mdecd2023.github.io/2a-pj1ag10/content/index.html">https://mdecd2023.github.io/2a-pj1ag10/content/index.html</a></p>
 <h1>progress</h1>
-<p>week 1 :  講解課程內容及評分標準</p>
-<p>week 2 :  二二八放假</p>
-<p>week 3 : 講解如何建立靜態網站</p>
-<p>分工進度</p>
+<p><strong>week 1 :</strong>  講解課程內容及評分標準</p>
+<p><strong>week 2 :</strong>  二二八放假</p>
+<p><strong>week 3 :</strong> 講解如何建立靜態網站</p>
+<p><span style="color: #000000;">分工進度</span></p>
 <p>41023119 建立靜態網站、編寫 dynamic stie、progress、tutorial 1 、專案規劃及修改note目錄</p>
 <p>41023138 過程發現問題，並且問老師、解決問題，編寫 note目錄</p>
-<p>week 4 : Bubblerub tutorial 製作過程與心得</p>
+<p><strong>week 4 :</strong> Bubblerub tutorial 製作過程與心得</p>
+<p><span style="color: #000000;">分工進度</span></p>
 <p>41023119 加入 tutorial .ttt 檔 wink 影片及 problem 、notestud2.cycu.org 及 add wink 筆記、新增 w4 目錄</p>
 <p>41023138 解決倉儲同步問題、加入同步倉儲筆記及 tutorial 簡報</p><h1>note</h1>
 <p>課程筆記</p>
@@ -230,7 +231,9 @@ var winkVideoData_w1_1 = {
 <p><strong>在CoppeliaSim scene 中,如何利用 lua 以及 python 建立 primitive type object, 並利用程式設定物件位置?</strong></p>
 <p>在CoppeliaSim scene中，可以使用Lua或Python腳本來建立基本形狀物體（primitive type object），並利用程式設定物體位置。<br/><br/>以下是使用Lua腳本建立基本形狀物體並設定位置的示例：<br/><br/>lua</p>
 <p><br/>-- 創建一個球形物體<br/>local radius = 0.1<br/>local ballHandle = sim.createPureShape(0, 16, {radius, radius, radius}, 0.005, nil)<br/><br/>-- 設定物體位置<br/>local position = {0, 0, 0.5}<br/>sim.setObjectPosition(ballHandle, -1, position)<br/>以上代碼首先創建了一個半徑為0.1的球形物體，並將其存儲在變量ballHandle中。然後，通過sim.setObjectPosition函數將球形物體放置在世界坐標系中的位置(0,0,0.5)。<br/><br/>以下是使用Python腳本建立基本形狀物體並設定位置的示例：<br/><br/>python<br/><br/>import sim<br/><br/># 創建一個球形物體<br/>radius = 0.1<br/>ballHandle = sim.simCreatePureShape(0, 16, [radius, radius, radius], 0.005, None)<br/><br/># 設定物體位置<br/>position = [0, 0, 0.5]<br/>sim.simSetObjectPosition(ballHandle, -1, position)<br/>以上代碼首先創建了一個半徑為0.1的球形物體，並將其存儲在變量ballHandle中。然後，通過sim.simSetObjectPosition函數將球形物體放置在世界坐標系中的位置(0,0,0.5)。<br/><br/>需要注意的是，以上代碼僅示範了如何創建基本形狀物體並設定位置。在實際應用中，可能需要對物體進行更多的設置，例如添加碰撞形狀、質量等等。使用者可以根據需要進一步設置物體屬性，以滿足自己的需求。</p>
-<h1>專案規劃</h1>
+<p><strong>Coppeliasim 中graph 作用是什麼?</strong></p>
+<p>Graph 是可以記錄和可視化模擬數據的場景對象。數據記錄在數據流中，數據流是與時間戳相關聯的值的順序列表，數據流可以直接可視化為時間圖。通過組合 2 或 3 個數據流，可以獲得場景中的 x/y 曲線或 3D 曲線。</p>
+<p></p><h1>專案規劃</h1>
 <p>規劃專案的12個步驟</p>
 <p><br/>如果我們有好多好多的事情要做，誰不愛擁有一個清單？告訴自己該做什麼，並且詳細的條列出來，下次只要依循這些清單上面的步驟，我們就可以完成一個專案，又不用害怕遺漏甚麼東西，那該有多好呢？當然身為負責這個專案的你，以下步驟可以幫助你更輕鬆有效的規劃專案。</p>
 <p style="text-align: left;">1.定義範疇<br/>這是一個規劃專案的重要第一步，此專案要做甚麼、包含的範圍有多廣，必須在何時完成，你必須把這個大餅畫出來再做細分，才能夠掌握此專案的正確方向。<br/><br/>2.確定您的專案發起人<br/>每一個專案都會有一個發起人或利益相關者，找出這些人都是誰。</p>
