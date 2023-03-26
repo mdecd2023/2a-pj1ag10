@@ -13,8 +13,10 @@
 <p><span style="color: #000000;">分工進度</span></p>
 <p>41023119 加入 tutorial .ttt 檔 wink 影片及 problem 、notestud2.cycu.org 及 add wink 筆記、新增 w4 目錄</p>
 <p>41023138 解決倉儲同步問題、加入同步倉儲筆記及 tutorial 簡報</p>
-<p><strong>week 5 :</strong> 建立 TCEXAM 帳號</p>
-<p><span style="color: #000000;">分工進度:都建立好了</span></p><h1>note</h1>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<p><strong>week 5 :</strong> 建立 TCEXAM 帳號、添加letex</p>
+<p><span style="color: #000000;">分工進度</span></p>
+<h1>note</h1>
 <p>添加課程筆記</p><h2>add wink</h2>
 <p>將下面全選複製到 source code (也就是&lt;&gt;裡面)即可</p>
 <pre class="brush:js;auto-links:false;html-script:true;toolbar:false" contenteditable="false">&lt;script&gt;// &lt;![CDATA[
@@ -30,7 +32,8 @@ var winkVideoData_w1_1 = {
 &lt;!-- 接下來將 mp4 檔案從 downloads 目錄取出 --&gt;
 &lt;div class="winkVideoContainerClass"&gt;&lt;video width="800" height="600" autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/cmsimde/static" data-varname="winkVideoData_w1_1" muted="true"&gt;
 &lt;source src="./../downloads/xxxxxxxxx.mp4" type="video/mp4" /&gt;&lt;/video&gt;&lt;/div&gt;</pre>
-<p><br/><br/></p><h2>stud2.cycu.org</h2>
+<p><br/><br/></p>
+<h2>stud2.cycu.org</h2>
 <p>資料連結:<a href="https://teams.microsoft.com/_#/school/ClassNotes/w5?threadId=19:a398eb1b5dc841b690f68a4e4dcefdb7@thread.tacv2&amp;ctx=channel">team-cad2022-w5</a></p>
 <p>step1. (登入 stud.cycu.org)利用 @nfu 電子郵箱收到的帳號與密碼, 登入 stud.cycu.org:  在命令列視窗, 以 ssh cad學號@stud.cycu.org , 輸入對應密後, 可以登入系統 <br/><br/>step2. 請到 excel 檔案 查詢 stud.cycu.org 中與帳號對應的近端 (給 127.0.0.1 使用) 與遠端 (給 stud.cycu.org) 埠號 <br/><br/>step3. (透過 sftp 建立近端目錄與 stud.cycu.org 帳號下的對應)  開啟另一個命令列, 執行 sftp 帳號@stud.cycu.org   輸入對應密碼, 即可建立近端目錄與遠端系統目錄間的對應. <br/><br/>step4. 與在近端(Windows)利用  SSH 建立 public/private keys 流程相同, 必須在 Linux (Ubuntu) 利用 ssh-keygen 建立 keys. 所產生的 id_rsa 為 private key, 而 id_rsa.pub 為 public key, 都位於 .ssh 目錄下. <br/><br/>step5. 利用 sftp  進入 stud.cycu.org 後, cd 到 .ssh, 以 get id_rsa.pub 將 public key 取至  Windows 後, 送到 Github -&gt; Settings -&gt; SSH and GPG 設定區, 透過 new key 登錄公鑰. <br/><br/>step6. 接下來要下載  config 設定檔案,  以 sftp 放入 stud.cycu.org 主機的 .ssh 目錄中. <br/><br/>step7. 上面的  config  主要設定 SSH 協定對  github.com  連線時的代理主機, 但取下  cmsimde  子模組使用的是  https,  因此執行下列  git clone 時將會同時用到   SSH  與 https  協定,  因此除了  .ssh  目錄下要有  config  設定檔案外, 也必須同時在  .gitconfig  檔案中設定  http.proxy,  也就是以 git config --global http.proxy http://p42.cycu.org:3128 設定供 https 連線使用的代理主機, 並且以  git config --global  user.name 以及  git config --global  user.email 設定提交用的身分註記. <br/><br/>step8. 在 stud.cycu.org 中, 以 git clone --recurse-submodules  git@github.com:mdecad2022/site-個人github帳號.git   取下個人倉儲. <br/><br/>step9. 假如先前使用  git clone 並沒有取下  cmsimde 子模組內容, 只要在設定 https 代理主機後, 進入倉儲根目錄執行  git submodule update --init  --recursive  即可取下子模組內容. <br/><br/>step10. 接著下載 server.py, 在 Windows 編輯 server.py, 將個人分配到的 9xxxx 埠號填入後存檔, 以 sftp 放入上列取下的倉儲根目錄. <br/><br/>step11. 在 stud.cycu.org 系統中, 進入倉儲 (site-github帳號) 後, 執行 python3 server.py, 就可啟用動態網站. <br/><br/>step12. 設定完成後, 各學員將會有一個廣域網路上的動態網站 (取代 Replit 上的動態網站), https://stud.cycu.org:8xxxx   看到個人的動態網站. <br/><br/>step13. 動態網站改版後, 轉為靜態, 必須透過 source acp 以 SSH 將改版內容送回 github. (必須利用 chmod u+x acp 將 acp  檔案屬性改為對  user 可以 execute (也就是 x 屬性). <br/><br/>step14. 執行 source acp  "提交字串" 之前必須要 git config  --global user.name, git config  --global user.email, git config  --global http.proxy <br/><br/>step15. 上述採用指令模式對  server sftp 也可以利用  Filezilla portable, 以圖形介面完成. 而 ssh 也可以透過  putty.exe 執行遠端登入.</p>
 <p></p>
@@ -135,7 +138,8 @@ run()
 <!-- 程式執行 ouput 區 -->
 <div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
 <!-- Brython 程式執行的結果, 都以 brython_div 作為切入位置 -->
-<div id="brython_div"></div><h2>41023119 心得</h2>
+<div id="brython_div"></div>
+<h2>41023119 心得</h2>
 <p>本學期課程為協同設計，主要有四點</p>
 <p>1.看參與協同者能否<span style="box-sizing: border-box;">同步並發</span>執行所被交付的內容</p>
 <p>2.能否保留每一個階段所從事的設計版</p>
@@ -154,7 +158,8 @@ run()
 <p>-&gt; 因為使用學校的電腦及網路，會發現學校ipv6無法正常運作，將網路切至ipv4即可克隆倉儲</p>
 <p>2. 要將 dynamic site 做好的內容 acp 到 github 倉儲上時無法上傳成功</p>
 <p>-&gt; 與問題一相同的類型，將學校網路設置為ipv4即可acp</p>
-<p>有問過老師之後，我們也分工合作，把這個禮拜的進度慢慢在做了。</p><h1>w4</h1>
+<p>有問過老師之後，我們也分工合作，把這個禮拜的進度慢慢在做了。</p>
+<h1>w4</h1>
 <p>BubbleRub tutorial 製作結果與心得 presentation (以 Web-based 方式發表):</p>
 <p><a href="https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html">https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html</a><br/><br/>Tutorial 議題: Why? How? What? (主題為何? 如何協同? 完成內容展示 - in person or in webpages)</p>
 <p></p>
@@ -247,7 +252,8 @@ var winkVideoData_w1_1 = {
 <p><strong>Coppeliasim 中graph 作用是什麼?</strong></p>
 <p>Graph 是可以記錄和可視化模擬數據的場景對象。數據記錄在數據流中，數據流是與時間戳相關聯的值的順序列表，數據流可以直接可視化為時間圖。通過組合 2 或 3 個數據流，可以獲得場景中的 x/y 曲線或 3D 曲線。</p>
 <p><strong>程式序與非程式序差異為何?</strong></p>
-<p>程式序列通常包括由程式語言編寫的指令，用於告訴計算機如何執行特定的任務。這些指令通常包括條件語句、迴圈、函數和變量等結構，並且是按照嚴格的語法規則編寫的。這些指令被編譯器或解釋器轉換為機器碼，這是計算機可以理解和執行的二進制指令。<br/><br/>非程式序列則是一系列指令或操作，用於執行某些特定的任務，但它們通常不是用程式語言編寫的。這些指令可能是人類可以直接理解和執行的，例如在工廠中製造產品時使用的操作序列。它們可能包括按照特定順序執行的一系列步驟，例如裝配零件或烹飪食物，或者可能包括從一個系統中提取信息並在另一個系統中輸入信息的一系列操作。</p><h1>專案規劃</h1>
+<p>程式序列通常包括由程式語言編寫的指令，用於告訴計算機如何執行特定的任務。這些指令通常包括條件語句、迴圈、函數和變量等結構，並且是按照嚴格的語法規則編寫的。這些指令被編譯器或解釋器轉換為機器碼，這是計算機可以理解和執行的二進制指令。<br/><br/>非程式序列則是一系列指令或操作，用於執行某些特定的任務，但它們通常不是用程式語言編寫的。這些指令可能是人類可以直接理解和執行的，例如在工廠中製造產品時使用的操作序列。它們可能包括按照特定順序執行的一系列步驟，例如裝配零件或烹飪食物，或者可能包括從一個系統中提取信息並在另一個系統中輸入信息的一系列操作。</p>
+<h1>專案規劃</h1>
 <p>規劃專案的12個步驟</p>
 <p><br/>如果我們有好多好多的事情要做，誰不愛擁有一個清單？告訴自己該做什麼，並且詳細的條列出來，下次只要依循這些清單上面的步驟，我們就可以完成一個專案，又不用害怕遺漏甚麼東西，那該有多好呢？當然身為負責這個專案的你，以下步驟可以幫助你更輕鬆有效的規劃專案。</p>
 <p style="text-align: left;">1.定義範疇<br/>這是一個規劃專案的重要第一步，此專案要做甚麼、包含的範圍有多廣，必須在何時完成，你必須把這個大餅畫出來再做細分，才能夠掌握此專案的正確方向。<br/><br/>2.確定您的專案發起人<br/>每一個專案都會有一個發起人或利益相關者，找出這些人都是誰。</p>
