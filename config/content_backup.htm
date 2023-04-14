@@ -187,12 +187,79 @@ run()
 <p>BubbleRub tutorial 製作結果與心得 presentation (以 Web-based 方式發表):</p>
 <p><a href="https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html">https://mdecd2023.github.io/2a-pj1ag10/content/tutorial1.html</a><br/><br/>Tutorial 議題: Why? How? What? (主題為何? 如何協同? 完成內容展示 - in person or in webpages)</p>
 <h1>w5</h1>
-<p>bubbleRob football 檔案 : <a href="/downloads/newbing_bubbleRob_football.ttt">newbing_bubbleRob_football</a></p>
-<p>3/30 已完成場地</p>
-<h1>pj1</h1>
+<p>3/30 已完成場地及感測器</p>
+<p><img alt="" height="405" src="/images/20230330.png" width="720"/></p>
+<p>4/14 完成記分板程式</p>
+<p><img alt="" height="405" src="/images/20230414.png" width="720"/></p>
+<p>4/14 可進行計分</p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QrEx-9oWQ-c" title="YouTube video player" width="560"></iframe></p>
+<p>在錄影時記分板不會顯示出來-附上圖片</p>
+<p><img alt="" height="405" src="/images/20230414-1.png" width="720"/></p><h2>code comments</h2>
+<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj2</a> ，並加上註解</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
+    score1 = 0 -- 初始化一個名為score1的變數，值為0
+    
+    sensor = sim.getObject('./sensor') -- 從模擬場景中獲取一個名為sensor的物體
+    
+    -- 創建一個UI，包括標題、計分標籤和當前分數值標籤，使用plastique風格
+    xml = [[
+        &lt;ui title="Scoreboard" closeable="false" resizable="false" style="plastique"&gt;
+        &lt;label text="Score:" style="* {background-color: #808080; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="10"/&gt;
+        &lt;label text="0" style="* {background-color: #FFF; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px;}" id="30"/&gt;
+     
+        &lt;/ui&gt;
+    ]]
+    ui = simUI.create(xml) -- 創建UI
+    simUI.setPosition(ui, 0,0, true) -- 將UI定位在屏幕左上角
+    bubbleRob = sim.getObject('/bubbleRob') -- 從模擬場景中獲取名為bubbleRob的物體句柄
+    ball = sim.getObject('/ball') -- 從模擬場景中獲取名為ball的物體句柄
+    bubbleRob2 = sim.getObject('/bubbleRob2') -- 從模擬場景中獲取名為bubbleRob2的物體句柄
+    initialPosition = sim.getObjectPosition(bubbleRob, -1) -- 獲取bubbleRob物體的初始位置
+    initialOrientation = sim.getObjectOrientation(bubbleRob, -1) -- 獲取bubbleRob物體的初始方向
+    initialPosition2 = sim.getObjectPosition(bubbleRob2, -1) -- 獲取bubbleRob2物體的初始位置
+    initialOrientation2 = sim.getObjectOrientation(bubbleRob2, -1) -- 獲取bubbleRob2物體的初始方向
+    initialballPosition = sim.getObjectPosition(ball, -1) -- 獲取ball物體的初始位置
+    initialballOrientation = sim.getObjectOrientation(ball, -1) -- 獲取ball物體的初始方向
+
+end
+
+function sysCall_actuation()
+    --simUI.setLabelText(ui, 30, tostring(sim.getFloatSignal("myVariable")))
+
+    -- 讀取接近傳感器的距離值，將其存儲在result變數中
+    result=sim.readProximitySensor(sensor)
+
+    -- 如果分數小於5，則執行以下操作
+    if(score1&lt;5)then
+
+        -- 如果檢測到接近物體，則執行以下操作
+        if(result&gt;0)then
+            -- 將score1變數增加1
+            score2 = score1+1
+
+            -- 在UI中更新分數值標籤的文本為score2
+            simUI.setLabelText(ui, 30, tostring(score2))
+
+            -- 重置bubbleRob、bubbleRob2和ball物體的位置和方向
+            sim.setObjectPosition(bubbleRob, -1, initialPosition)
+            sim.setObjectOrientation(bubbleRob, -1, initialOrientation)
+            sim.setObjectPosition(bubbleRob2, -1, initialPosition2)
+            sim.setObjectOrientation(bubbleRob2, -1, initialOrientation2)
+            sim.setObjectPosition(ball, -1, initialballPosition)
+            sim.setObjectOrientation(ball, -1, initialballOrientation)
+
+            -- 將score1設置為score2
+            score1=score2
+        end
+    else
+        -- 如果分數達到5，則暫停模擬
+        sim.pauseSimulation()
+    end
+end</pre>
+<p></p>
+<p></p><h1>pj1</h1>
 <h2>w6</h2>
-<p><strong>完成連線的分組 :</strong><br/><br/>ag1 : 41023143；41023147<br/><br/>ag2 : 41023146；41023148<br/><br/>ag5 : 41023121；41023134<br/><br/>ag6 : 41023104；41023112<br/><br/>ag7 : 41023103；41023106<br/><br/>ag8 : 41023102；41023107<br/><br/>ag9 : 41023130；41023142<br/><br/>ag10 : 41023119；41023138<br/><br/>ag11 : 41023122；41023124<br/><br/>ag12 : 41023114；41023126<br/><br/>ag13 : 41023133；41023140<br/><br/>ag14 : 41023113；41023153<br/><br/>ag15 : 41023135；41023154<br/><br/>ag16 : 41023132；41023151<br/><br/>ag17 : 41023118；41023120<br/><br/>ag18 : 41023131；41023148<br/><br/>ag21 : 41023116；41023137<br/><br/><strong>未完成連線的分組組員學號 :</strong><br/><br/>ag3-    41023108  柯惠心    41023110紀宜馨<br/><br/>ag4-    41023125  李學淵    41023128 林呈恩<br/><br/>ag19-  41023101  王怡婷    41023141 姜連安<br/><br/>ag20-  41023109  洪于芳    41023105 李宛妮</p>
-<h1>tutorial1</h1>
+<p><strong>完成連線的分組 :</strong><br/><br/>ag1 : 41023143、41023147<br/><br/>ag2 : 41023146、41023148<br/><br/>ag5 : 41023121、41023134<br/><br/>ag6 : 41023104、41023112<br/><br/>ag7 : 41023103、41023106<br/><br/>ag8 : 41023102、41023107<br/><br/>ag9 : 41023130、41023142<br/><br/>ag10 : 41023119、41023138<br/><br/>ag11 : 41023122、41023124<br/><br/>ag12 : 41023114、41023126<br/><br/>ag13 : 41023133、41023140<br/><br/>ag14 : 41023113、41023153<br/><br/>ag15 : 41023135、41023154<br/><br/>ag16 : 41023132、41023151<br/><br/>ag17 : 41023118、41023120<br/><br/>ag18 : 41023131、41023148<br/><br/>ag21 : 41023116、41023137<br/><br/><strong>未完成連線的分組組員學號 :</strong><br/><br/>ag3-    41023108  柯惠心、41023110 紀宜馨<br/><br/>ag4-    41023125  李學淵、41023128 林呈恩<br/><br/>ag19-  41023101  王怡婷、41023141 姜連安<br/><br/>ag20-  41023109  洪于芳、41023105 李宛妮</p><h1>tutorial1</h1>
 <p>球體碰撞模擬<a href="/downloads/BubbleRub作業.pptx"></a></p>
 <p>bubbleRobTutorial 簡報：  <a href="/downloads/BubbleRub作業.pptx">BubbleRub作業.pptx</a></p>
 <p>bubbleRobTutorial 檔案：<a href="/downloads/bubbleRobTutorial 1.ttt">bubbleRobTutorial.ttt</a></p>

@@ -2,7 +2,7 @@
         <head>
         <title>2a-pj1ag10</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -141,8 +141,70 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">code comments << <a href='code comments.html'>Previous</a> <a href='w6.html'>Next</a> >> w6<br /><h1>pj1</h1>
-<br />code comments << <a href='code comments.html'>Previous</a> <a href='w6.html'>Next</a> >> w6</div>
+    <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1<br /><h1>code comments</h1>
+<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj2</a> ，並加上註解</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
+    score1 = 0 -- 初始化一個名為score1的變數，值為0
+    
+    sensor = sim.getObject('./sensor') -- 從模擬場景中獲取一個名為sensor的物體
+    
+    -- 創建一個UI，包括標題、計分標籤和當前分數值標籤，使用plastique風格
+    xml = [[
+        &lt;ui title="Scoreboard" closeable="false" resizable="false" style="plastique"&gt;
+        &lt;label text="Score:" style="* {background-color: #808080; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="10"/&gt;
+        &lt;label text="0" style="* {background-color: #FFF; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px;}" id="30"/&gt;
+     
+        &lt;/ui&gt;
+    ]]
+    ui = simUI.create(xml) -- 創建UI
+    simUI.setPosition(ui, 0,0, true) -- 將UI定位在屏幕左上角
+    bubbleRob = sim.getObject('/bubbleRob') -- 從模擬場景中獲取名為bubbleRob的物體句柄
+    ball = sim.getObject('/ball') -- 從模擬場景中獲取名為ball的物體句柄
+    bubbleRob2 = sim.getObject('/bubbleRob2') -- 從模擬場景中獲取名為bubbleRob2的物體句柄
+    initialPosition = sim.getObjectPosition(bubbleRob, -1) -- 獲取bubbleRob物體的初始位置
+    initialOrientation = sim.getObjectOrientation(bubbleRob, -1) -- 獲取bubbleRob物體的初始方向
+    initialPosition2 = sim.getObjectPosition(bubbleRob2, -1) -- 獲取bubbleRob2物體的初始位置
+    initialOrientation2 = sim.getObjectOrientation(bubbleRob2, -1) -- 獲取bubbleRob2物體的初始方向
+    initialballPosition = sim.getObjectPosition(ball, -1) -- 獲取ball物體的初始位置
+    initialballOrientation = sim.getObjectOrientation(ball, -1) -- 獲取ball物體的初始方向
+
+end
+
+function sysCall_actuation()
+    --simUI.setLabelText(ui, 30, tostring(sim.getFloatSignal("myVariable")))
+
+    -- 讀取接近傳感器的距離值，將其存儲在result變數中
+    result=sim.readProximitySensor(sensor)
+
+    -- 如果分數小於5，則執行以下操作
+    if(score1&lt;5)then
+
+        -- 如果檢測到接近物體，則執行以下操作
+        if(result&gt;0)then
+            -- 將score1變數增加1
+            score2 = score1+1
+
+            -- 在UI中更新分數值標籤的文本為score2
+            simUI.setLabelText(ui, 30, tostring(score2))
+
+            -- 重置bubbleRob、bubbleRob2和ball物體的位置和方向
+            sim.setObjectPosition(bubbleRob, -1, initialPosition)
+            sim.setObjectOrientation(bubbleRob, -1, initialOrientation)
+            sim.setObjectPosition(bubbleRob2, -1, initialPosition2)
+            sim.setObjectOrientation(bubbleRob2, -1, initialOrientation2)
+            sim.setObjectPosition(ball, -1, initialballPosition)
+            sim.setObjectOrientation(ball, -1, initialballOrientation)
+
+            -- 將score1設置為score2
+            score1=score2
+        end
+    else
+        -- 如果分數達到5，則暫停模擬
+        sim.pauseSimulation()
+    end
+end</pre>
+<p></p>
+<p></p><br />w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1</div>
         
     <!-- footer -->
       <div class="container">
