@@ -192,9 +192,14 @@ run()
 <p>4/14 完成記分板程式</p>
 <p><img alt="" height="405" src="/images/20230414.png" width="720"/></p>
 <p>4/14 可進行計分</p>
+<p>觸碰到感測器球及機器人會重置到原本的位置</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QrEx-9oWQ-c" title="YouTube video player" width="560"></iframe></p>
 <p>在錄影時記分板不會顯示出來-附上圖片</p>
-<p><img alt="" height="405" src="/images/20230414-1.png" width="720"/></p><h2>code comments</h2>
+<p><img alt="" height="405" src="/images/20230414-1.png" width="720"/></p>
+<p>當分數為5分時，會暫停模擬</p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/fWbkG7gVaFw" title="YouTube video player" width="560"></iframe></p>
+<p>在製作感測器時求記得把 collidable、measurable、detectable 這三個選線打開</p>
+<p><img alt="" height="405" src="/images/20230414-2.png" width="720"/></p><h2>code comments</h2>
 <p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj2</a> ，並加上註解</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
     score1 = 0 -- 初始化一個名為score1的變數，值為0
