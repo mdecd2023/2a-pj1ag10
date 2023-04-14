@@ -142,7 +142,7 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1<br /><h1>code comments</h1>
-<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj2</a> ，並加上註解</p>
+<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj1ag2</a> ，並加上註解</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
     score1 = 0 -- 初始化一個名為score1的變數，值為0
     
@@ -203,6 +203,64 @@ function sysCall_actuation()
         sim.pauseSimulation()
     end
 end</pre>
+<p>倒數計時器程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag4/content/index.html">2a-pj1ag4</a></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">-- 初始化函數，初始化得分(score1)為0和計時器(count)為3600
+function sysCall_init()
+    -- initialize the score to 0
+    score1 = 0 -- 初始化得分
+    count = 3600 -- 初始化計時器
+    -- 獲取接近傳感器對象並創建UI界面
+    sensor = sim.getObject('./sensor')
+    xml = [[
+            &lt;ui title="Scoreboard" closeable="false" resizable="false" style="plastique"&gt;
+              &lt;label text="60:00.0" style="* {background-color: #F00; color: #FFF; font-size: 32px; font-weight: bold; padding: 4px; border-radius: 4px;}" id="10"/&gt;
+              &lt;label text="Score:" style="* {background-color: #808080; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="20"/&gt;
+              &lt;label text="0" style="* {background-color: #FFF; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px;}" id="30"/&gt;
+            &lt;/ui&gt;
+          ]]
+    ui = simUI.create(xml)
+    simUI.setPosition(ui, 0, 0, true)
+    -- 獲取對象及其初始位置/方向
+    bubbleRob = sim.getObject('/bubbleRob')
+    ball = sim.getObject('/ball')
+    initialPosition = sim.getObjectPosition(bubbleRob, -1)
+    initialOrientation = sim.getObjectOrientation(bubbleRob, -1)
+    initialballPosition = sim.getObjectPosition(ball, -1)
+    initialballOrientation = sim.getObjectOrientation(ball, -1)
+    
+end
+
+function sysCall_actuation() -- 讀取接近傳感器值
+    result=sim.readProximitySensor(sensor)
+    -- 檢查得分是否小於5
+    if(score1&lt;5)then
+        -- 檢查接近傳感器是否檢測到某物
+        if(result&gt;0)then
+            -- 增加得分並更新UI標籤
+            score2 = score1+1
+            simUI.setLabelText(ui, 30, tostring(score2))
+            -- 重置對象的位置和方向
+            sim.setObjectPosition(bubbleRob, -1, initialPosition)
+            sim.setObjectOrientation(bubbleRob, -1, initialOrientation)
+            sim.setObjectPosition(ball, -1, initialballPosition)
+            sim.setObjectOrientation(ball, -1, initialballOrientation)
+            -- 更新得分變量
+            score1=score2
+        end
+    end
+    if count &gt; 0 then -- 檢查計時器是否大於0
+          count = count - 1 -- 減少倒數時間
+          local minutes = math.floor(count / 60) -- 計算分鐘
+          local seconds = count % 60 -- 計算秒數
+          local timeStr = string.format("%d:%02d", minutes , seconds) -- 格式化時間字符串
+          simUI.setLabelText(ui, 10, timeStr) -- 更新時間UI標籤
+          simUI.setLabelText(ui, 30, tostring(score1)) -- 更新score的UI標籤
+    else
+        -- 如果分數達到5，則會暫停模擬
+        sim.pauseSimulation()
+    end
+end</pre>
+<p></p>
 <p></p>
 <p></p><br />w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1</div>
         
