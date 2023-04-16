@@ -24,11 +24,8 @@
 <p><strong>week 7 : </strong>清明節放假</p>
 <p><strong>week 8 : </strong>TCEXAM 小考、 製作 bubbleRob football</p>
 <p>41023119 編譯 bubbleRob football 倒數計時器程式及記分板程式</p>
-<p>41023138 問問題、解決倉儲問題、完成感測器</p><h1>note</h1>
-=======
-<p>41023119 編譯 bubbleRob football 倒數計時器程式及記分板程式</p>
-<p>41023138 解決倉儲問題、完成計時器、場地</p><h1>note</h1>
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; 48ea8b0b0d6ea5907b68dd0bab68b26bb103c81d
+<p>41023138 問問題、解決倉儲問題、完成感測器</p>
+<h1>note</h1>
 <p>添加課程筆記</p>
 <h2>add wink</h2>
 <p>將下面全選複製到 source code (也就是&lt;&gt;裡面)即可</p>
@@ -207,13 +204,18 @@ run()
 <p>可以將倒數計時器顯示出來，但計時器所減少的時間會比正常時間快好幾倍</p>
 <p><img alt="" height="405" src="/images/20230414-3.png" width="720"/></p>
 <p>bubbleRob_football 檔案 : <a href="/downloads/newbing_bubbleRob_football.ttt">bubbleRob_football_pj1ag10</a></p>
+<p>加入連線對戰 bubbleRob_football 檔案 : <a href="/downloads/newbing_bubbleRob_football-2.ttt">bubbleRob_football-2_pj1ag10</a></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/N05LssWO1C8" title="YouTube video player" width="560"></iframe></p>
+<p>所有檔案壓縮檔：<a href="/downloads/bubbleRob football 2a-pj1ag10.7z">bubbleRob football 2a-pj1ag10.7z</a></p>
+<p></p>
+<p></p>
 <p>bubbleRob_football 檔案 :<a href="/downloads/newbing_bubbleRob_football-1.ttt">/downloads/newbing_bubbleRob_football-1.ttt</a></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/dFF211h6ri4" title="YouTube video player" width="560"></iframe></p>
 <p></p>
 <p>場地及感測器</p>
 <p><img alt="" height="447" src="/images/CoppeliaSim Edu - newbing_bubbleRob_football - rendering_ 1 ms (8.0 fps) - SIMULATION STOPPED 2023_4_15 上午 12_33_30.jpg" width="858"/></p>
 <p></p><h2>code comments</h2>
-<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj1ag2</a> ，並加上註解</p>
+<p><span style="background-color: #00ffff;">程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html" style="background-color: #00ffff;">2a-pj1ag2</a> ，並加上註解</span></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
     score1 = 0 -- 初始化一個名為score1的變數，值為0
     
@@ -274,7 +276,7 @@ function sysCall_actuation()
         sim.pauseSimulation()
     end
 end</pre>
-<p>倒數計時器程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag4/content/index.html">2a-pj1ag4</a> ，並加上註解</p>
+<p><span style="background-color: #00ffff;">倒數計時器程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag4/content/index.html" style="background-color: #00ffff;">2a-pj1ag4</a> ，並加上註解</span></p>
 <pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">-- 初始化函數，初始化得分(score1)為0和計時器(count)為3600
 function sysCall_init()
     -- initialize the score to 0
@@ -331,11 +333,74 @@ function sysCall_actuation() -- 讀取接近傳感器值
         sim.pauseSimulation()
     end
 end</pre>
-<p></p>
+<p><span style="background-color: #00ffff;">連線remoteAPI程式註解</span></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false"># 引入必要的模块
+from zmqRemoteApi import RemoteAPIClient
+import keyboard
+import sim
+import time
+import simConst
+
+# 打印程式啟動的訊息
+print('程式開始執行')
+
+# 關閉所有已開啟的連線
+sim.simxFinish(-1)
+
+# 連接到遠端 API 伺服器
+clientID = sim.simxStart('192.168.56.1', 19998, True, True, 5000, 5)
+
+# 啟動仿真
+sim.simxStartSimulation(clientID, sim.simx_opmode_oneshot_wait)
+
+# 判斷是否成功連線到伺服器
+if clientID != -1:
+    print('已連線到遠端 API 伺服器')
+else:
+    print('連線到遠端 API 伺服器失敗')
+
+# 打印仿真開始的訊息
+print('仿真已開始')
+
+# 取得左右輪子的控制句柄
+errorCode, leftMotor = sim.simxGetObjectHandle(clientID, 'leftMotor2', sim.simx_opmode_oneshot_wait)
+errorCode, rightMotor = sim.simxGetObjectHandle(clientID, 'rightMotor2', sim.simx_opmode_oneshot_wait)
+
+# 設定 BubbleRob 的速度
+def setBubbleRobVelocity(leftWheelVelocity, rightWheelVelocity):
+    # 取得左右輪子的控制句柄
+    errorCode, leftMotor = sim.simxGetObjectHandle(clientID, '/leftMotor2', sim.simx_opmode_oneshot_wait)
+    errorCode, rightMotor = sim.simxGetObjectHandle(clientID, '/rightMotor2',sim.simx_opmode_oneshot_wait)
+    # 設定左右輪子的目標速度
+    sim.simxSetJointTargetVelocity(clientID, leftMotor, leftWheelVelocity, simConst.simx_opmode_streaming)
+    sim.simxSetJointTargetVelocity(clientID, rightMotor, rightWheelVelocity, simConst.simx_opmode_streaming)
+
+# 循環檢測鍵盤事件
+while True:
+    if keyboard.is_pressed('up'):
+        # 按下"上"鍵，前進
+        setBubbleRobVelocity(2.0, 2.0)
+    elif keyboard.is_pressed('down'):
+        # 按下"下"鍵，後退
+        setBubbleRobVelocity(-2.0, -2.0)
+    elif keyboard.is_pressed('left'):
+        # 按下"左"鍵，左轉
+        setBubbleRobVelocity(-2.0, 2.0)
+    elif keyboard.is_pressed('right'):
+        # 按下"右"鍵，右轉
+        setBubbleRobVelocity(2.0, -2.0)
+    elif keyboard.is_pressed('q'):
+        # 按下"q"鍵，停止仿真
+        sim.stopSimulation()
+    else:
+        # 沒有按下任何鍵，停止移動
+        setBubbleRobVelocity(0.0, 0.0)</pre>
+<p><br/><br/></p>
 <p></p>
 <p></p><h1>pj1</h1>
 <h2>w6</h2>
-<p><strong>完成連線的分組 :</strong><br/><br/>ag1 : 41023143、41023147<br/><br/>ag2 : 41023146、41023148<br/><br/>ag5 : 41023121、41023134<br/><br/>ag6 : 41023104、41023112<br/><br/>ag7 : 41023103、41023106<br/><br/>ag8 : 41023102、41023107<br/><br/>ag9 : 41023130、41023142<br/><br/>ag10 : 41023119、41023138<br/><br/>ag11 : 41023122、41023124<br/><br/>ag12 : 41023114、41023126<br/><br/>ag13 : 41023133、41023140<br/><br/>ag14 : 41023113、41023153<br/><br/>ag15 : 41023135、41023154<br/><br/>ag16 : 41023132、41023151<br/><br/>ag17 : 41023118、41023120<br/><br/>ag18 : 41023131、41023148<br/><br/>ag21 : 41023116、41023137<br/><br/><strong>未完成連線的分組組員學號 :</strong><br/><br/>ag3-    41023108  柯惠心、41023110 紀宜馨<br/><br/>ag4-    41023125  李學淵、41023128 林呈恩<br/><br/>ag19-  41023101  王怡婷、41023141 姜連安<br/><br/>ag20-  41023109  洪于芳、41023105 李宛妮</p><h1>tutorial1</h1>
+<p><strong>完成連線的分組 :</strong><br/><br/>ag1 : 41023143、41023147<br/><br/>ag2 : 41023146、41023148<br/><br/>ag5 : 41023121、41023134<br/><br/>ag6 : 41023104、41023112<br/><br/>ag7 : 41023103、41023106<br/><br/>ag8 : 41023102、41023107<br/><br/>ag9 : 41023130、41023142<br><br>ag10 : 41023119、41023138<br/><br/>ag11 : 41023122、41023124<br/><br/>ag12 : 41023114、41023126<br/><br/>ag13 : 41023133、41023140<br/><br/>ag14 : 41023113、41023153<br/><br/>ag15 : 41023135、41023154<br/><br/>ag16 : 41023132、41023151<br/><br/>ag17 : 41023118、41023120<br><br>ag18 : 41023131、41023148<br/><br/>ag21 : 41023116、41023137<br/><br/><strong>未完成連線的分組組員學號 :</strong><br/><br/>ag3-    41023108  柯惠心、41023110 紀宜馨<br/><br/>ag4-    41023125  李學淵、41023128 林呈恩<br/><br/>ag19-  41023101  王怡婷、41023141 姜連安<br/><br/>ag20-  41023109  洪于芳、41023105 李宛妮</br></br></br></br></p>
+<h1>tutorial1</h1>
 <p>球體碰撞模擬<a href="/downloads/BubbleRub作業.pptx"></a></p>
 <p>bubbleRobTutorial 簡報：  <a href="/downloads/BubbleRub作業.pptx">BubbleRub作業.pptx</a></p>
 <p>bubbleRobTutorial 檔案：<a href="/downloads/bubbleRobTutorial 1.ttt">bubbleRobTutorial.ttt</a></p>

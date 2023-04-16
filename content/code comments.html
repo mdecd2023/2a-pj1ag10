@@ -142,7 +142,7 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1<br /><h1>code comments</h1>
-<p>程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html">2a-pj1ag2</a> ，並加上註解</p>
+<p><span style="background-color: #00ffff;">程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag2/content/index.html" style="background-color: #00ffff;">2a-pj1ag2</a> ，並加上註解</span></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
     score1 = 0 -- 初始化一個名為score1的變數，值為0
     
@@ -203,7 +203,7 @@ function sysCall_actuation()
         sim.pauseSimulation()
     end
 end</pre>
-<p>倒數計時器程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag4/content/index.html">2a-pj1ag4</a> ，並加上註解</p>
+<p><span style="background-color: #00ffff;">倒數計時器程式參考 <a href="https://mdecd2023.github.io/2a-pj1ag4/content/index.html" style="background-color: #00ffff;">2a-pj1ag4</a> ，並加上註解</span></p>
 <pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">-- 初始化函數，初始化得分(score1)為0和計時器(count)為3600
 function sysCall_init()
     -- initialize the score to 0
@@ -260,10 +260,71 @@ function sysCall_actuation() -- 讀取接近傳感器值
         sim.pauseSimulation()
     end
 end</pre>
+<p><span style="background-color: #00ffff;">連線remoteAPI程式註解</span></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false"># 引入必要的模块
+from zmqRemoteApi import RemoteAPIClient
+import keyboard
+import sim
+import time
+import simConst
+
+# 打印程式啟動的訊息
+print('Program started')
+
+# 關閉所有已開啟的連線
+sim.simxFinish(-1)
+
+# 連接到遠端 API 伺服器
+clientID = sim.simxStart('192.168.56.1', 19998, True, True, 5000, 5)
+
+# 啟動仿真
+sim.simxStartSimulation(clientID, sim.simx_opmode_oneshot_wait)
+
+# 判斷是否成功連線到伺服器
+if clientID != -1:
+    print('Connected to remote API server')
+else:
+    print('Failed connecting to remote API server')
+
+# 打印仿真開始的訊息
+print('Simulation started')
+
+# 取得左右輪子的控制句柄
+errorCode, leftMotor = sim.simxGetObjectHandle(clientID, 'leftMotor2', sim.simx_opmode_oneshot_wait)
+errorCode, rightMotor = sim.simxGetObjectHandle(clientID, 'rightMotor2', sim.simx_opmode_oneshot_wait)
+
+# 設定 BubbleRob 的速度
+def setBubbleRobVelocity(leftWheelVelocity, rightWheelVelocity):
+    # 取得左右輪子的控制句柄
+    errorCode, leftMotor = sim.simxGetObjectHandle(clientID, '/leftMotor2', sim.simx_opmode_oneshot_wait)
+    errorCode, rightMotor = sim.simxGetObjectHandle(clientID, '/rightMotor2',sim.simx_opmode_oneshot_wait)
+    # 設定左右輪子的目標速度
+    sim.simxSetJointTargetVelocity(clientID, leftMotor, leftWheelVelocity, simConst.simx_opmode_streaming)
+    sim.simxSetJointTargetVelocity(clientID, rightMotor, rightWheelVelocity, simConst.simx_opmode_streaming)
+
+# 循環檢測鍵盤事件
+while True:
+    if keyboard.is_pressed('up'):
+        # 按下"上"鍵，前進
+        setBubbleRobVelocity(2.0, 2.0)
+    elif keyboard.is_pressed('down'):
+        # 按下"下"鍵，後退
+        setBubbleRobVelocity(-2.0, -2.0)
+    elif keyboard.is_pressed('left'):
+        # 按下"左"鍵，左轉
+        setBubbleRobVelocity(-2.0, 2.0)
+    elif keyboard.is_pressed('right'):
+        # 按下"右"鍵，右轉
+        setBubbleRobVelocity(2.0, -2.0)
+    elif keyboard.is_pressed('q'):
+        # 按下"q"鍵，停止仿真
+        sim.stopSimulation()
+    else:
+        # 沒有按下任何鍵，停止移動
+        setBubbleRobVelocity(0.0, 0.0)</pre>
+<p><br/><br/></p>
 <p></p>
-<p></p>
-<p></p>
-<br />w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1</div>
+<p></p><br />w5 << <a href='w5.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1</div>
         
     <!-- footer -->
       <div class="container">
