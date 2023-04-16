@@ -2,7 +2,7 @@
         <head>
         <title>2a-pj1ag10</title>
         <meta charset="utf-8">
-<meta property="head" content="H2">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -141,11 +141,9 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">add wink << <a href='add wink.html'>Previous</a> <a href='Synchronize.html'>Next</a> >> Synchronize<br /><h1>stud2.cycu.org</h1>
-<p>資料連結:<a href="https://teams.microsoft.com/_#/school/ClassNotes/w5?threadId=19:a398eb1b5dc841b690f68a4e4dcefdb7@thread.tacv2&amp;ctx=channel">team-cad2022-w5</a></p>
-<p>step1. (登入 stud.cycu.org)利用 @nfu 電子郵箱收到的帳號與密碼, 登入 stud.cycu.org:  在命令列視窗, 以 ssh cad學號@stud.cycu.org , 輸入對應密後, 可以登入系統 <br/><br/>step2. 請到 excel 檔案 查詢 stud.cycu.org 中與帳號對應的近端 (給 127.0.0.1 使用) 與遠端 (給 stud.cycu.org) 埠號 <br/><br/>step3. (透過 sftp 建立近端目錄與 stud.cycu.org 帳號下的對應)  開啟另一個命令列, 執行 sftp 帳號@stud.cycu.org   輸入對應密碼, 即可建立近端目錄與遠端系統目錄間的對應. <br/><br/>step4. 與在近端(Windows)利用  SSH 建立 public/private keys 流程相同, 必須在 Linux (Ubuntu) 利用 ssh-keygen 建立 keys. 所產生的 id_rsa 為 private key, 而 id_rsa.pub 為 public key, 都位於 .ssh 目錄下. <br/><br/>step5. 利用 sftp  進入 stud.cycu.org 後, cd 到 .ssh, 以 get id_rsa.pub 將 public key 取至  Windows 後, 送到 Github -&gt; Settings -&gt; SSH and GPG 設定區, 透過 new key 登錄公鑰. <br/><br/>step6. 接下來要下載  config 設定檔案,  以 sftp 放入 stud.cycu.org 主機的 .ssh 目錄中. <br/><br/>step7. 上面的  config  主要設定 SSH 協定對  github.com  連線時的代理主機, 但取下  cmsimde  子模組使用的是  https,  因此執行下列  git clone 時將會同時用到   SSH  與 https  協定,  因此除了  .ssh  目錄下要有  config  設定檔案外, 也必須同時在  .gitconfig  檔案中設定  http.proxy,  也就是以 git config --global http.proxy http://p42.cycu.org:3128 設定供 https 連線使用的代理主機, 並且以  git config --global  user.name 以及  git config --global  user.email 設定提交用的身分註記. <br/><br/>step8. 在 stud.cycu.org 中, 以 git clone --recurse-submodules  git@github.com:mdecad2022/site-個人github帳號.git   取下個人倉儲. <br/><br/>step9. 假如先前使用  git clone 並沒有取下  cmsimde 子模組內容, 只要在設定 https 代理主機後, 進入倉儲根目錄執行  git submodule update --init  --recursive  即可取下子模組內容. <br/><br/>step10. 接著下載 server.py, 在 Windows 編輯 server.py, 將個人分配到的 9xxxx 埠號填入後存檔, 以 sftp 放入上列取下的倉儲根目錄. <br/><br/>step11. 在 stud.cycu.org 系統中, 進入倉儲 (site-github帳號) 後, 執行 python3 server.py, 就可啟用動態網站. <br/><br/>step12. 設定完成後, 各學員將會有一個廣域網路上的動態網站 (取代 Replit 上的動態網站), https://stud.cycu.org:8xxxx   看到個人的動態網站. <br/><br/>step13. 動態網站改版後, 轉為靜態, 必須透過 source acp 以 SSH 將改版內容送回 github. (必須利用 chmod u+x acp 將 acp  檔案屬性改為對  user 可以 execute (也就是 x 屬性). <br/><br/>step14. 執行 source acp  "提交字串" 之前必須要 git config  --global user.name, git config  --global user.email, git config  --global http.proxy <br/><br/>step15. 上述採用指令模式對  server sftp 也可以利用  Filezilla portable, 以圖形介面完成. 而 ssh 也可以透過  putty.exe 執行遠端登入.</p>
-<p></p>
-<br />add wink << <a href='add wink.html'>Previous</a> <a href='Synchronize.html'>Next</a> >> Synchronize</div>
+    <div id="tipue_search_content">latex << <a href='latex.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1<br /><h1>football雙人對打</h1>
+<p>球場及感測器建立</p>
+<p><img alt="" height="364" src="./../images/CoppeliaSim Edu - newbing_bubbleRob_football-���H�若 - rendering_ 4 ms (7.9 fps) - SIMULATION STOPPED 2023_4_16 下午 02_17_27.jpg" width="704"/></p><br />latex << <a href='latex.html'>Previous</a> <a href='pj1.html'>Next</a> >> pj1</div>
         
     <!-- footer -->
       <div class="container">
